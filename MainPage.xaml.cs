@@ -68,8 +68,8 @@ namespace Calculadora
             {
                 if (primeiroNumero >= 0 && estadoCorrente == 1)
                 {
-                    primeiroNumero = double.Parse(this.resultadoTela.Text) * (-1);
-                    this.resultadoTela.Text = primeiroNumero.ToString();
+                    //primeiroNumero = double.Parse(this.resultadoTela.Text) * (-1);
+                    //this.resultadoTela.Text = primeiroNumero.ToString();
 
                     this.resultadoTela.Text = (double.Parse(this.resultadoTela.Text) * (-1)).ToString();
                     segundoNumero = (segundoNumero * (-1));
