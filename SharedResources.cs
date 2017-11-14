@@ -9,8 +9,8 @@ namespace Calculadora
         {
             get
             {
-                //return Color.White;
-                return Color.FromHex("#1abc9c");
+                //return Cor do botão
+                return Color.FromHex("#00E676");
             }
         }
     }
