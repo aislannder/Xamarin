@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
@@ -11,7 +11,7 @@ namespace Calculadora
         double primeiroNumero, segundoNumero;
         double resultado = 0;
 
-	    private bool temPonto = false;
+        private bool temPonto = false;
 
         public MainPage()
         {
@@ -24,11 +24,11 @@ namespace Calculadora
             Button botao = (Button)sender;
             string clicado = botao.Text;
 
-            
             //caso digite 0 ou estado seja menor que 0, significa que em algum momento foi digitado um operador
             if (this.resultadoTela.Text == "0" || estadoCorrente < 0)
             {
-                if (!temPonto) {
+                if (!temPonto)
+                {
                     this.resultadoTela.Text = "";
                 }
 
@@ -41,13 +41,14 @@ namespace Calculadora
             //converte a string do visor para um double
             if (double.TryParse(this.resultadoTela.Text, out double numero))
             {
-                //apresenta numeros grandes com virgulas Ex: 10,000,00
-                //this.resultadoTela.Text = numero.ToString("N0");
                 this.resultadoTela.Text = numero.ToString();
-
 
                 //verifica se o estado corrente não tem um operador
                 if (estadoCorrente == 1)
+                {
+                     primeiroNumero = numero;
+                }
+                else if (estadoCorrente == -1)
                 {
                     primeiroNumero = numero;
                 }
@@ -68,52 +69,47 @@ namespace Calculadora
             {
                 if (primeiroNumero >= 0 && estadoCorrente == 1)
                 {
-                    //primeiroNumero = double.Parse(this.resultadoTela.Text) * (-1);
-                    //this.resultadoTela.Text = primeiroNumero.ToString();
-
                     this.resultadoTela.Text = (double.Parse(this.resultadoTela.Text) * (-1)).ToString();
-                    segundoNumero = (segundoNumero * (-1));
-
+                    primeiroNumero = (primeiroNumero * (-1));
                 }
-                else if (estadoCorrente == -1 || estadoCorrente == 2)
+                else if (estadoCorrente == -1)//operador = foi acionado
                 {
-
+                    this.resultadoTela.Text = (double.Parse(this.resultadoTela.Text) * (-1)).ToString();
+                    primeiroNumero = (primeiroNumero * (-1));
+                }
+                else if (estadoCorrente == 2)
+                {
                     this.resultadoTela.Text = (double.Parse(this.resultadoTela.Text) * (-1)).ToString();
                     segundoNumero = (segundoNumero * (-1));
                 }
             }
-
-            //estadoCorrente = -2;
         }
 
         void OnSelecionarOperador(object sender, EventArgs e)
         {
-
             Button botao = (Button)sender;
             string clicado = botao.Text;
 
             estadoCorrente = -2;
             temPonto = false;
             operador = clicado;
-
         }
 
         void OnSelecionarPonto(object sender, EventArgs e)
         {
             Button button = (Button)sender;
             string pressed = button.Text;
-            
+
             if (estadoCorrente == 1)
             {
-
                 //Verifique se já possui um ponto (caso contrario não faz nada)
-                if(!temPonto){
+                if (!temPonto)
+                {
                     if (this.resultadoTela.Text.Length != 0)
                     {
-                       
-                            this.resultadoTela.Text = this.resultadoTela.Text + button.Text;
-                            //Alternar o sinalizador para verdadeiro (apenas 1 decimal por cálculo)
-                            temPonto = true;
+                        this.resultadoTela.Text = this.resultadoTela.Text + button.Text;
+                        //Alternar o sinalizador para verdadeiro (apenas 1 decimal por cálculo)
+                        temPonto = true;
                     }
                 }
             }
@@ -121,7 +117,6 @@ namespace Calculadora
             {
                 this.resultadoTela.Text = "0.";
                 temPonto = true;
-               
             }
         }
 
@@ -157,7 +152,6 @@ namespace Calculadora
                 resultado = CalculadoraSimples.Calcular(primeiroNumero, segundoNumero, operador);
             }
 
-            
             this.resultadoTela.Text = resultado.ToString();
             primeiroNumero = resultado;
             estadoCorrente = -1;
