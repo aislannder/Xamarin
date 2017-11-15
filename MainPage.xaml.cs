@@ -67,7 +67,7 @@ namespace Calculadora
             //caso seja o operador +/-
             if (clicado == "+/-")
             {
-                if (primeiroNumero >= 0 && estadoCorrente == 1)
+                if (estadoCorrente == 1)
                 {
                     this.resultadoTela.Text = (double.Parse(this.resultadoTela.Text) * (-1)).ToString();
                     primeiroNumero = (primeiroNumero * (-1));
